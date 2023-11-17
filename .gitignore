@@ -31,15 +31,10 @@ replay_pid*
 /bin/
 /.classpath
 /.project
+*.jar
+EnjoyTripFinal/gradlew
 EnjoyTripFinal/gradlew.bat
 EnjoyTripFinal/gradle/wrapper/gradle-wrapper.jar
 EnjoyTripFinal/gradle/wrapper/gradle-wrapper.properties
 EnjoyTripFinal/src/test/java/com/project/enjoytrip/EnjoyTripFinalApplicationTests.java
-EnjoyTripFinal/gradle/wrapper/gradle-wrapper.jar
-EnjoyTripFinal/gradle/wrapper/gradle-wrapper.jar
-EnjoyTripFinal/gradlew
-EnjoyTripFinal/gradle/wrapper/gradle-wrapper.jar
-*.jar
-EnjoyTripFinal/gradle/wrapper/gradle-wrapper.jar
 Servers/.settings/org.eclipse.wst.server.core.prefs
-EnjoyTripFinal/gradle/wrapper/gradle-wrapper.jar
