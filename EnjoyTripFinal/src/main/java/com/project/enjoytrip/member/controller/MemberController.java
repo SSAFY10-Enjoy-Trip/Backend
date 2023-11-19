@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.enjoytrip.member.dto.MemberDeleteDto;
@@ -27,7 +29,7 @@ public class MemberController {
 	
 	// 회원 가입
 	@PostMapping("/member")
-	public Map<String, String> register( MemberRegisterDto memberRegisterDto){
+	public Map<String, String> register(MemberRegisterDto memberRegisterDto){
 		System.out.println("/register");
 		
 		Map<String, String> map = new HashMap<>();
@@ -49,7 +51,7 @@ public class MemberController {
 	}
 	
 	// 회원 전체 조회
-	@GetMapping("/memberList")
+	@GetMapping("/member/list")
 	public MemberFindAllDto findAll(){
 		System.out.println("/findAll");
 		
