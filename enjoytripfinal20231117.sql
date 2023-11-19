@@ -159,7 +159,7 @@ CREATE TABLE `trip_board` (
   `title` varchar(500) DEFAULT NULL,
   `content` text,
   `reg_dt` datetime DEFAULT CURRENT_TIMESTAMP,
-  `read_count` varchar(45) DEFAULT '0',
+  `read_count` int DEFAULT '0',
   `like_count` int DEFAULT '0',
   PRIMARY KEY (`board_id`),
   KEY `user_id_idx` (`user_id`),
