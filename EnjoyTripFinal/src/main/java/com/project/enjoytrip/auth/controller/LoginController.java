@@ -30,9 +30,9 @@ public class LoginController {
 		
 		if(user != null) {
 			session.setAttribute("user", user); // 서버 용도
-			map.put("result", "SUCCESS");
+			map.put("login", "SUCCESS");
 		}else {
-			map.put("result", "FAIL");
+			map.put("login", "FAIL");
 		}
 		
 		return map;
@@ -44,9 +44,9 @@ public class LoginController {
 		Map<String, String> map = new HashMap<>();
 		if(session != null) {
 			session.invalidate();
-			map.put("result", "SUCCESS");
+			map.put("login", "SUCCESS");
 		}else {
-			map.put("result", "FAIL");
+			map.put("login", "FAIL");
 		}
 
 		return map;
