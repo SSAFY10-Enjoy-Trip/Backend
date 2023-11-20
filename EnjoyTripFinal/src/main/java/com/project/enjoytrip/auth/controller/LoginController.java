@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.enjoytrip.auth.dto.LoginDto;
@@ -23,7 +24,7 @@ public class LoginController {
 	
 	// Login (Post)
 	@PostMapping(value="/login")
-	public Map<String, String> login(LoginDto loginDto, HttpSession session){
+	public Map<String, String> login(@RequestBody LoginDto loginDto, HttpSession session){
 		Map<String, String> map = new HashMap<>();
 		LoginDto user = loginServiceImpl.Login(loginDto);
 		
