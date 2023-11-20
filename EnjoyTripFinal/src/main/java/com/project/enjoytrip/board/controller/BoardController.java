@@ -1,11 +1,13 @@
 package com.project.enjoytrip.board.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,10 +44,15 @@ public class BoardController {
 		return map;
 	}
 	
-	@GetMapping(value="/tripBoard")
-	public Board Detail(int boardId) {
+	@GetMapping(value="/tripBoard/{boardId}")
+	public Board Detail(@PathVariable int boardId) {
 		return boardService.Detail(boardId);
 	}
-	
+
+	@GetMapping(value="/tripBoard")
+	public List<Board> FindAll() {
+		System.out.println(boardService.FindAll().getBoardList());
+		return boardService.FindAll().getBoardList();
+	}
 
 }

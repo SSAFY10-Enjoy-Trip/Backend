@@ -1,5 +1,6 @@
 package com.project.enjoytrip.board.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -31,8 +32,10 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardFindAllDto FindAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Board> dto = boardRepository.findAll();
+		BoardFindAllDto allDto = new BoardFindAllDto();
+		allDto.setBoardList(dto);
+		return allDto;
 	}
 
 	@Override
