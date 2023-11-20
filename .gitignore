@@ -38,3 +38,4 @@ EnjoyTripFinal/gradle/wrapper/gradle-wrapper.jar
 EnjoyTripFinal/gradle/wrapper/gradle-wrapper.properties
 EnjoyTripFinal/src/test/java/com/project/enjoytrip/EnjoyTripFinalApplicationTests.java
 Servers/.settings/org.eclipse.wst.server.core.prefs
+EnjoyTripFinal/src/main/resources/application.properties

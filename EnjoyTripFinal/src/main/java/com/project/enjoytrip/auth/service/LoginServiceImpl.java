@@ -23,7 +23,7 @@ public class LoginServiceImpl implements LoginService{
 		// 로그인 성공
 		Member member = loginRepository.findByEmail(loginDto.getEmail());
 		if(member != null && member.getPassword().equals(loginDto.getPassword())) {
-			loginDto.toDto(member);
+			loginDto = new LoginDto().toDto(member);
 			loginDto.setPassword("");
 			return loginDto;
 		}
