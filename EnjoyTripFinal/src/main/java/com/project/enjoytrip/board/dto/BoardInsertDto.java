@@ -23,19 +23,22 @@ public class BoardInsertDto {
 	@NotBlank
 	private String content;
 	@NotBlank
+	private String location;
+	@NotBlank
 	private LocalDateTime regDt;
 
 	@NotBlank
 	private Member member;
 	
 	@Builder
-	public BoardInsertDto(String title, String content) {
+	public BoardInsertDto(String title, String content, String location) {
 		this.title = title;
 		this.content = content;
+		this.location = location;
 		this.regDt = LocalDateTime.now();
 	}
 	
 	public Board toEntity() {
-		return new Board(member, title, content, regDt);
+		return new Board(member, title, content, location, regDt);
 	}
 }

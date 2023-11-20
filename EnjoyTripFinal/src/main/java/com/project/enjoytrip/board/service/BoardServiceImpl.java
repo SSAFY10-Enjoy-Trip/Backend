@@ -1,15 +1,15 @@
 package com.project.enjoytrip.board.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.project.enjoytrip.board.dto.BoardDeleteDto;
 import com.project.enjoytrip.board.dto.BoardFindAllDto;
-import com.project.enjoytrip.board.dto.BoardFindDto;
 import com.project.enjoytrip.board.dto.BoardInsertDto;
 import com.project.enjoytrip.board.dto.BoardModifyDto;
 import com.project.enjoytrip.board.entity.Board;
 import com.project.enjoytrip.board.repository.BoardRepository;
-import com.project.enjoytrip.member.dto.MemberFindDto;
 import com.project.enjoytrip.member.entity.Member;
 import com.project.enjoytrip.member.service.MemberService;
 
@@ -24,9 +24,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
 	@Override
-	public BoardFindDto Find(BoardFindDto boardFindDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Board Detail(int boardId) {
+		Optional<Board> detail = boardRepository.findById(boardId);
+		return detail.get();
 	}
 
 	@Override

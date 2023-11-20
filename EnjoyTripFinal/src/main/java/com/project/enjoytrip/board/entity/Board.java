@@ -38,6 +38,8 @@ public class Board {
 	private String title;
 	@Column(nullable = false, insertable = true, updatable = true, columnDefinition="TEXT")
 	private String content;
+	@Column(nullable = false, insertable = true, updatable = true, columnDefinition="TEXT")
+	private String location;
 	@Column(name="reg_dt", columnDefinition = "datetime default current_timestamp")
 	private LocalDateTime regDt;
 	@Column(name="read_count")
@@ -45,15 +47,16 @@ public class Board {
 	@Column(name="like_count")
 	private int likeCount;
 	
-	// member_id ì™¸ë˜í‚¤ ì§€ì •
+	// member_id ¿Ü·¡Å° ÁöÁ¤
 	@ManyToOne(cascade=CascadeType.REMOVE)
-	@JoinColumn(name="user_id") // PKê°€ í•˜ë‚˜ë¼ ìƒëµê°€ëŠ¥ í•˜ì§€ë§Œ ëª…ì‹œí•¨. referencedColumnName="member_id"
+	@JoinColumn(name="user_id") // PK°¡ ÇÏ³ª¶ó ÀÚµ¿ÁöÁ¤ µÇÁö¸¸, ¸í½ÃÇÔ. referencedColumnName="member_id"
 	private Member member;
 	
 	// Insert, Update
-	public Board(Member member, String title, String content, LocalDateTime regDt) {
+	public Board(Member member, String title, String content, String location, LocalDateTime regDt) {
 		this.title = title;
 		this.content = content;
+		this.location = location;
 		this.regDt = regDt;
 		this.member = member;
 	}
