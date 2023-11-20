@@ -17,7 +17,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 		System.out.println("LoginInterceptor >>> " + request.getRequestURI());
 		
-		// JSP 없이 비동기 처리만!
+		// CORS 에서  put, delete 등 오류 해결 코드
+        if (request.getMethod().equals("OPTIONS")) {
+            return true;
+        }
+		
+		// 비동기 처리만!
 		HttpSession session = request.getSession();
 		LoginDto loginDto = (LoginDto) session.getAttribute("user");
 
