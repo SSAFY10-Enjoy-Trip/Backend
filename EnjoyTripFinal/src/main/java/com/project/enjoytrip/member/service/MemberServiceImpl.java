@@ -2,6 +2,7 @@ package com.project.enjoytrip.member.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.project.enjoytrip.member.dto.MemberDeleteDto;
 import com.project.enjoytrip.member.dto.MemberFindAllDto;
-import com.project.enjoytrip.member.dto.MemberFindDto;
+import com.project.enjoytrip.member.dto.MemberFindByEmailDto;
+import com.project.enjoytrip.member.dto.MemberFindByIdDto;
 import com.project.enjoytrip.member.dto.MemberModifyDto;
 import com.project.enjoytrip.member.dto.MemberRegisterDto;
 import com.project.enjoytrip.member.entity.Member;
@@ -43,11 +45,20 @@ public class MemberServiceImpl implements MemberService {
 		return false;
 	}
 
-	// 회원 1건 조회
+	// 회원 1건 이메일로 조회
 	@Override
 	@Transactional
-	public MemberFindDto Find(MemberFindDto memberFindDto) {
-		return memberFindDto.toDto(memberRepository.findByEmail(memberFindDto.getEmail()));
+	public MemberFindByEmailDto FindByEmail(MemberFindByEmailDto memberFindByEmailDto) {
+		return memberFindByEmailDto.toDto(memberRepository.findByEmail(memberFindByEmailDto.getEmail()));
+	}
+	
+	// 회원 1건 Id로 조회
+	@Override
+	public MemberFindByIdDto FindById(MemberFindByIdDto memberFindByIdDto) {
+		Member member = memberRepository.findById(memberFindByIdDto.getMemberId())
+				.orElseThrow(() -> new IllegalArgumentException("no such data"));
+		
+		return memberFindByIdDto.toDto(member);
 	}
 
 	// 회원 전체 조회
@@ -58,7 +69,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberFindAllDto memberFindAllDto = new MemberFindAllDto();
 		memberFindAllDto.setMemberList(new ArrayList<>());
 		for(Member member:memberList) {
-			MemberFindDto memberFindDto = new MemberFindDto();
+			MemberFindByEmailDto memberFindDto = new MemberFindByEmailDto();
 			memberFindAllDto.getMemberList().add(memberFindDto.toDto(member));
 		}
 		return memberFindAllDto;
@@ -95,4 +106,5 @@ public class MemberServiceImpl implements MemberService {
 	public boolean checkEmailDuplicate(String email) {
 		return memberRepository.existsByEmail(email);
 	}
+
 }

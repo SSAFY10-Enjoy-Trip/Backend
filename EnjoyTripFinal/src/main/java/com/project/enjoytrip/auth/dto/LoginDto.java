@@ -15,6 +15,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class LoginDto {
+	
+	private int memberId;
+	
 	@NotBlank
 	private String email;
 	
@@ -22,7 +25,8 @@ public class LoginDto {
 	private String password;
 	
 	@Builder
-	public LoginDto(String email, String password) {
+	public LoginDto(int memberId, String email, String password) {
+		this.memberId = memberId;
 		this.email = email;
 		this.password = password;
 	}
@@ -36,6 +40,7 @@ public class LoginDto {
 	
 	public LoginDto toDto(Member member) {
 		return LoginDto.builder()
+				.memberId(member.getMemberId())
 				.email(member.getEmail())
 				.password(member.getPassword())
 				.build();

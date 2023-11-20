@@ -12,5 +12,5 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class MemberFindAllDto {
-	private List<MemberFindDto> memberList;
+	private List<MemberFindByEmailDto> memberList;
 }

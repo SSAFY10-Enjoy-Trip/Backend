@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.enjoytrip.member.dto.MemberDeleteDto;
 import com.project.enjoytrip.member.dto.MemberFindAllDto;
-import com.project.enjoytrip.member.dto.MemberFindDto;
+import com.project.enjoytrip.member.dto.MemberFindByEmailDto;
 import com.project.enjoytrip.member.dto.MemberModifyDto;
 import com.project.enjoytrip.member.dto.MemberRegisterDto;
 import com.project.enjoytrip.member.service.MemberServiceImpl;
@@ -43,10 +41,10 @@ public class MemberController {
 	
 	// 회원 1건 조회
 	@GetMapping("/member")
-	public MemberFindDto find( MemberFindDto memberFindDto){
+	public MemberFindByEmailDto find( MemberFindByEmailDto memberFindByEmailDto){
 		System.out.println("/find");
 		
-		return memberServiceImpl.Find(memberFindDto);
+		return memberServiceImpl.FindByEmail(memberFindByEmailDto);
 
 	}
 	
