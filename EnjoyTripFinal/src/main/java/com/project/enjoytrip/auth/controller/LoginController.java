@@ -31,6 +31,8 @@ public class LoginController {
 		if(user != null) {
 			session.setAttribute("user", user); // 서버 용도
 			map.put("login", "success");
+			map.put("name", user.getName());
+			map.put("profileImageUrl", user.getProfileImageUrl());
 		}else {
 			map.put("login", "fail");
 		}
@@ -43,7 +45,7 @@ public class LoginController {
 	public Map<String, String> logout(HttpSession session){
 		Map<String, String> map = new HashMap<>();
 		session.invalidate();
-		map.put("logout", "success");
+		map.put("result", "success");
 
 		return map;
 	}
