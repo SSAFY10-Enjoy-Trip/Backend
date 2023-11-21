@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public MemberFindByEmailDto FindByEmail(MemberFindByEmailDto memberFindByEmailDto) {
-		return memberFindByEmailDto.toDto(memberRepository.findByEmail(memberFindByEmailDto.getEmail()));
+		return memberFindByEmailDto.toDto(memberRepository.findByEmail(memberFindByEmailDto.getEmail()).orElseThrow(() -> new IllegalArgumentException("no such data")));
 	}
 	
 	// 회원 1건 Id로 조회
@@ -79,7 +79,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public boolean Modify(MemberModifyDto memberModifyDto) {
-		Member member = memberRepository.findByEmail(memberModifyDto.getEmail());
+		Member member = memberRepository.findByEmail(memberModifyDto.getEmail()).orElseThrow(() -> new IllegalArgumentException("no such data"));
 		if (member == null) {
 			return false;
 		}
@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public boolean Delete(MemberDeleteDto memberDeleteDto) {
-		Member member = memberRepository.findByEmail(memberDeleteDto.getEmail());
+		Member member = memberRepository.findByEmail(memberDeleteDto.getEmail()).orElseThrow(() -> new IllegalArgumentException("no such data"));
 		if (memberDeleteDto.getPassword().equals(member.getPassword())) {
 			memberRepository.delete(member);
 			return true;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.enjoytrip.auth.dto.LoginDto;
 import com.project.enjoytrip.bookmark.service.BookmarkService;
-import com.project.enjoytrip.follow.dto.FollowDto;
+import com.project.enjoytrip.follow.dto.FollowResponseDto;
 import com.project.enjoytrip.follow.service.FollowService;
 
 @RestController

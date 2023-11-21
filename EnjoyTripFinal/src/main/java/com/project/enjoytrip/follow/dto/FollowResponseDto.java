@@ -1,16 +1,15 @@
 package com.project.enjoytrip.follow.dto;
 
-import javax.validation.constraints.NotBlank;
+import com.project.enjoytrip.follow.entity.FollowStatus;
 
-import com.project.enjoytrip.follow.entity.FollowId;
-
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class FollowDto {
+@NoArgsConstructor
+public class FollowResponseDto {
 //	@NotBlank
 //	private int userIdFrom;
 //	
@@ -39,4 +38,15 @@ public class FollowDto {
 //				.userIdTo(followId.getUserIdTo())
 //				.build();
 //	}
+	
+    private String requestingUserEmail;
+    private FollowStatus followStatus;
+
+    private String userEmail;
+    private String name;
+
+    public FollowResponseDto(String requestingUserEmail, String name) {
+        this.requestingUserEmail = requestingUserEmail;
+        this.name = name;
+    }
 }
