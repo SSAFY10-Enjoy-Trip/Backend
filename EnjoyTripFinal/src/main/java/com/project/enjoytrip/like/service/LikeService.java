@@ -4,4 +4,6 @@ public interface LikeService {
 	
 	boolean addHeart(int boardId, int userId);
 
+	boolean amIHeart(int boardId, int userId);
+
 }

@@ -1,8 +1,9 @@
 package com.project.enjoytrip.like.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
-import com.project.enjoytrip.like.dto.LikeUpdateDto;
 import com.project.enjoytrip.like.entity.Like;
 import com.project.enjoytrip.like.repository.LikeRepositorty;
 
@@ -15,19 +16,25 @@ public class LikeServiceImpl implements LikeService {
     }
     
 	@Override
+	@Transactional
 	public boolean addHeart(int boardId, int userId) {
-//	        // 해당 복합키로 저장된 Bookmark가 이미 존재하는지 확인
-//	        if (likeRepository.existByBoardIdAndUserId(boardId, userId)) {
-//	        	likeRepository.deleteByBoardIdAndUserId(boardId, userId);
-//
-//	            return true;
-//	        }
-//	        else {
-//	        	Like like = new Like(boardId, userId);
-//		        // 저장
-//		        likeRepository.save(like);
-//	        }
+	        // 이미 좋아요를 했는지 확인
+	        if (amIHeart(boardId, userId)) {
+	        	likeRepository.deleteByBoardIdAndUserId(boardId, userId);
+
+	            return true;
+	        }
+	        else {
+	        	Like like = new Like(boardId, userId);
+		        // 저장
+		        likeRepository.save(like);
+	        }
 	        return true;
+	}
+
+	@Override
+	public boolean amIHeart(int boardId, int userId) {
+		return likeRepository.existsByBoardIdAndUserId(boardId, userId);
 	}
 
 }
