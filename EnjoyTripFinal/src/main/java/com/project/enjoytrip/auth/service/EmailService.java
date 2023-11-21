@@ -4,6 +4,7 @@ import com.project.enjoytrip.auth.dto.EmailDto;
 import com.project.enjoytrip.auth.dto.SendEmailDto;
 
 public interface EmailService {
+	public boolean registerEmailCheck(EmailDto emailDto);
 	public boolean userEmailCheck(EmailDto emailDto);
 	public SendEmailDto createMailAndChangePassword(EmailDto emailDto);
 	public void updatePassword(EmailDto emailDto);

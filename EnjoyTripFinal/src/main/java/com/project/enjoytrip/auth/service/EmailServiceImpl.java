@@ -24,6 +24,18 @@ public class EmailServiceImpl implements EmailService {
 	public EmailServiceImpl(EmailRepository emailRepository) {
 		this.emailRepository = emailRepository;
 	}
+	
+	@Override
+	@Transactional
+	public boolean registerEmailCheck(EmailDto emailDto) {
+		Member member = emailRepository.findByEmail(emailDto.getEmail());
+		// member가 null 이면 회원가입 가능.
+		if (member == null) {
+			return true;
+		}
+
+		return false;
+	}
 
 	// 해당 email로 가입된 정보가 있는지 확인 및 email과 name이 일치하는지 체크
 	@Override

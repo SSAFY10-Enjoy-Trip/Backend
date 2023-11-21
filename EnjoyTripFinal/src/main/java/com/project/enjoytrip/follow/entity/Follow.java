@@ -1,7 +1,13 @@
 package com.project.enjoytrip.follow.entity;
 
-import javax.persistence.EmbeddedId;
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +17,29 @@ import lombok.Setter;
 
 @Entity
 @Builder  
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(
+		uniqueConstraints = @UniqueConstraint(columnNames = {"user_id_from", "user_id_to"})
+		)
+@IdClass(Follow.PK.class)
 public class Follow {
-	@EmbeddedId // 복합키 적용
-	private FollowId followId;
+	@Id
+    @Column(name = "user_id_from", insertable = false, updatable = false)
+    private int userIdFrom;
+
+    @Id
+    @Column(name = "user_id_to", insertable = false, updatable = false)
+    private int userIdTo;
+
+    public Follow(int userIdFrom, int userIdTo) {
+        this.userIdFrom = userIdFrom;
+        this.userIdTo = userIdTo;
+    }
+
+    public static class PK implements Serializable {
+    	int userIdFrom;
+    	int userIdTo;
+    }
 }

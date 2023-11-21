@@ -3,6 +3,8 @@ package com.project.enjoytrip.auth.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,21 @@ public class EmailController {
 
 	public EmailController(EmailServiceImpl emailServiceImpl) {
 		this.emailServiceImpl = emailServiceImpl;
+	}
+	
+	@GetMapping(value = "/check/{email}")
+	public Map<String, String> registerEmailCheck(@PathVariable String email){
+		Map<String, String> map = new HashMap<>();
+		EmailDto emailDto = new EmailDto();
+		emailDto.setEmail(email);
+		boolean check = emailServiceImpl.registerEmailCheck(emailDto);
+		// check가 true => 등록되지 않은 계정 => 회원 가입 가능
+		if (check) {
+			map.put("result", "success");
+		} else {
+			map.put("result", "fail");
+		}
+		return map;
 	}
 
 	// password find

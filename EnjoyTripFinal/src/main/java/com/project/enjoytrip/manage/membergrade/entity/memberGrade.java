@@ -9,9 +9,9 @@ import com.project.enjoytrip.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Getter
-@Setter
+//@Entity
+//@Getter
+//@Setter
 public class memberGrade {
 	private Member member;
 	
