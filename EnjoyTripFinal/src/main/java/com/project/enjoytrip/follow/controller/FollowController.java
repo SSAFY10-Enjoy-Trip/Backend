@@ -25,9 +25,9 @@ public class FollowController {
 	public Map<String, String> Follow(FollowDto followDto) {
 		Map<String, String> map = new HashMap<>();
 		if (followService.Follow(followDto)) {
-			map.put("Follow", "success");
+			map.put("result", "success");
 		} else {
-			map.put("Follow", "fail");
+			map.put("result", "fail");
 		}
 		return map;
 	}
@@ -37,9 +37,9 @@ public class FollowController {
 	public Map<String, String> unFollow(FollowDto followDto) {
 		Map<String, String> map = new HashMap<>();
 		if (followService.unFollow(followDto)) {
-			map.put("unFollow", "success");
+			map.put("result", "success");
 		} else {
-			map.put("unFollow", "fail");
+			map.put("result", "fail");
 		}
 		return map;
 	}
@@ -49,9 +49,9 @@ public class FollowController {
 	public Map<String, String> followerList(FollowDto followDto) {
 		Map<String, String> map = new HashMap<>();
 		if (followService.unFollow(followDto)) {
-			map.put("unFollow", "success");
+			map.put("result", "success");
 		} else {
-			map.put("unFollow", "fail");
+			map.put("result", "fail");
 		}
 		return map;
 	}
@@ -61,9 +61,9 @@ public class FollowController {
 	public Map<String, String> followingList(FollowDto followDto) {
 		Map<String, String> map = new HashMap<>();
 		if (followService.unFollow(followDto)) {
-			map.put("unFollow", "success");
+			map.put("result", "success");
 		} else {
-			map.put("unFollow", "fail");
+			map.put("result", "fail");
 		}
 		return map;
 	}

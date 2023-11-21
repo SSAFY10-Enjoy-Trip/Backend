@@ -30,11 +30,11 @@ public class LoginController {
 		
 		if(user != null) {
 			session.setAttribute("user", user); // 서버 용도
-			map.put("login", "success");
+			map.put("result", "success");
 			map.put("name", user.getName());
 			map.put("profileImageUrl", user.getProfileImageUrl());
 		}else {
-			map.put("login", "fail");
+			map.put("result", "fail");
 		}
 		
 		return map;

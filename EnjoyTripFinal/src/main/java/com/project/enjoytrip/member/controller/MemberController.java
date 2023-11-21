@@ -33,9 +33,9 @@ public class MemberController {
 		
 		Map<String, String> map = new HashMap<>();
 		if(memberServiceImpl.Register(memberRegisterDto)) {
-			map.put("register", "success");
+			map.put("result", "success");
 		}else {
-			map.put("register", "fail");
+			map.put("result", "fail");
 		}
 		return map;
 	}
@@ -65,9 +65,9 @@ public class MemberController {
 		
 		Map<String, String> map = new HashMap<>();
 		if(memberServiceImpl.Modify(memberModifyDto)) {
-			map.put("register", "success");
+			map.put("result", "success");
 		}else {
-			map.put("register", "fail");
+			map.put("result", "fail");
 		}
 		return map;
 	}
@@ -79,9 +79,9 @@ public class MemberController {
 		
 		Map<String, String> map = new HashMap<>();
 		if(memberServiceImpl.Delete(memberDeleteDto)) {
-			map.put("register", "success");
+			map.put("result", "success");
 		}else {
-			map.put("register", "fail");
+			map.put("result", "fail");
 		}
 		return map;
 	}
