@@ -27,7 +27,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board Detail(int boardId) {
 		Optional<Board> detail = boardRepository.findById(boardId);
-		return detail.get();
+		Board board = detail.get();
+		board.setReadCount(board.getReadCount()+1);
+		boardRepository.save(board);
+		return board;
 	}
 
 	@Override
