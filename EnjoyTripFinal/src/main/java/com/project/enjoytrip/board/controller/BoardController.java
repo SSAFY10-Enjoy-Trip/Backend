@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.enjoytrip.auth.dto.LoginDto;
 import com.project.enjoytrip.board.dto.BoardInsertDto;
+import com.project.enjoytrip.board.dto.BoardMatchDto;
 import com.project.enjoytrip.board.entity.Board;
 import com.project.enjoytrip.board.service.BoardService;
 
@@ -30,13 +31,9 @@ public class BoardController {
 	@PostMapping(value = "/tripBoard")
 	public Map<String, String> Insert(@RequestBody BoardInsertDto boardInsertDto, HttpSession session) {
 		
-		System.out.println(boardInsertDto);
 		LoginDto loginDto  = (LoginDto) session.getAttribute("user");
-		System.out.println(loginDto.getMemberId());
-		System.out.println("여기");
-		System.out.println(session.getAttribute("user"));
 		Map<String, String> map = new HashMap<>();
-		if (boardService.Insert(boardInsertDto, 10)) {
+		if (boardService.Insert(boardInsertDto, loginDto.getMemberId())) {
 			map.put("Board", "SUCCESS");
 		} else {
 			map.put("Board", "FAIL");
@@ -54,5 +51,13 @@ public class BoardController {
 		System.out.println(boardService.FindAll().getBoardList());
 		return boardService.FindAll().getBoardList();
 	}
+	@PostMapping(value="/tripBoard/check")
+	public boolean IsWriter(@RequestBody BoardMatchDto boardMatchDto, HttpSession session) {
+		LoginDto loginDto = (LoginDto) session.getAttribute("user");
+		boolean result = boardService.IsWriter(boardMatchDto, loginDto.getMemberId());
+		System.out.println("결과 : " + result);
+		return result ;
+	}
+
 
 }

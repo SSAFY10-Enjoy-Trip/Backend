@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.project.enjoytrip.board.dto.BoardDeleteDto;
 import com.project.enjoytrip.board.dto.BoardFindAllDto;
 import com.project.enjoytrip.board.dto.BoardInsertDto;
+import com.project.enjoytrip.board.dto.BoardMatchDto;
 import com.project.enjoytrip.board.dto.BoardModifyDto;
 import com.project.enjoytrip.board.entity.Board;
 import com.project.enjoytrip.board.repository.BoardRepository;
@@ -75,5 +76,10 @@ public class BoardServiceImpl implements BoardService {
 	public boolean Delete(BoardDeleteDto boardDeleteDto) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public boolean IsWriter(BoardMatchDto boardMatchDto, int userId) {
+		return boardRepository.existsByBoardIdAndMember_MemberId(boardMatchDto.getBoardId(), userId);
 	}
 }

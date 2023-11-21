@@ -6,4 +6,6 @@ import com.project.enjoytrip.board.entity.Board;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
+	 boolean existsByBoardIdAndMember_MemberId(int boardId, int userId);
+
 }
