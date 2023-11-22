@@ -3,6 +3,9 @@ package com.project.enjoytrip.board.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.project.enjoytrip.board.dto.BoardDeleteDto;
@@ -41,17 +44,24 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardFindAllDto FindAll() {
-		List<Board> dto = boardRepository.findAll();
-		BoardFindAllDto allDto = new BoardFindAllDto();
-		for (Board board : dto) {
-			int likeCount = likeService.likeCount(board.getBoardId(), board.getMember().getMemberId());
-			board.setLikeCount(likeCount);
-		}
-		allDto.setBoardList(dto);
-		return allDto;
-	}
+	public BoardFindAllDto FindAll(int page, int size) {
+		PageRequest pageable = PageRequest.of(page, size, Sort.by("regDt").descending());
 
+	    Page<Board> boardPage = boardRepository.findAll(pageable);
+	    List<Board> dto = boardPage.getContent();
+	    BoardFindAllDto allDto = new BoardFindAllDto();
+
+	    for (Board board : dto) {
+	        int likeCount = likeService.likeCount(board.getBoardId(), board.getMember().getMemberId());
+	        board.setLikeCount(likeCount);
+	    }
+
+	    allDto.setBoardList(dto);
+	    allDto.setTotalPages(boardPage.getTotalPages());
+	    allDto.setTotalElements((int) boardRepository.count());
+        
+        return allDto;
+	}
 	@Override
 	public boolean Insert(BoardInsertDto boardInsertDto, int userId) {
 		try {

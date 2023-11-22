@@ -16,7 +16,10 @@ import lombok.ToString;
 @ToString
 public class BoardFindAllDto {
 	List<Board> boardList = new ArrayList<>();
-
+	private int page;
+	private int size;
+	private int totalPages;
+	private int totalElements;
 	public List<Board> getBoardList() {
 		return boardList;
 	}

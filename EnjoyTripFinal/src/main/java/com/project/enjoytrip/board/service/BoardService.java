@@ -10,7 +10,7 @@ import com.project.enjoytrip.board.entity.Board;
 public interface BoardService {
 
 	public Board Detail(int boardId);
-	public BoardFindAllDto FindAll();
+	public BoardFindAllDto FindAll(int page, int size);
 	public boolean Insert(BoardInsertDto boardRegisterDto, int userId);
 	public boolean Modify(BoardModifyDto boardModifyDto);
 	public boolean Delete(BoardDeleteDto boardDeleteDto);

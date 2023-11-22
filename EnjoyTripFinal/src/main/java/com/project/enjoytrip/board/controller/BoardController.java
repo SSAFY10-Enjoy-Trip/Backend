@@ -1,7 +1,6 @@
 package com.project.enjoytrip.board.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.project.enjoytrip.auth.dto.LoginDto;
+import com.project.enjoytrip.board.dto.BoardFindAllDto;
 import com.project.enjoytrip.board.dto.BoardInsertDto;
 import com.project.enjoytrip.board.dto.BoardMatchDto;
 import com.project.enjoytrip.board.entity.Board;
@@ -46,10 +47,23 @@ public class BoardController {
 		return boardService.Detail(boardId);
 	}
 
-	@GetMapping(value="/tripBoard")
-	public List<Board> FindAll() {
-		System.out.println(boardService.FindAll().getBoardList());
-		return boardService.FindAll().getBoardList();
+	@PostMapping(value="/tripBoard/all")
+	public Map<String, String> FindAll(@RequestBody BoardFindAllDto boardFindAllDto) {
+		System.out.println("나 이거 받았엉");
+		System.out.println(boardFindAllDto);
+		BoardFindAllDto boardDto = boardService.FindAll(boardFindAllDto.getPage(), boardFindAllDto.getSize());
+		Map<String, String> map = new HashMap<>();
+		
+		
+	    Gson gson = new Gson();
+	    String boardListJson = gson.toJson(boardDto.getBoardList());
+	    
+	    System.out.println(boardListJson);
+		
+		map.put("board", boardListJson);
+		map.put("totalPages", Integer.toString(boardDto.getTotalPages()));
+		map.put("totalElements", Integer.toString(boardDto.getTotalElements()));
+		return map;
 	}
 	@PostMapping(value="/tripBoard/check")
 	public boolean IsWriter(@RequestBody BoardMatchDto boardMatchDto, HttpSession session) {
