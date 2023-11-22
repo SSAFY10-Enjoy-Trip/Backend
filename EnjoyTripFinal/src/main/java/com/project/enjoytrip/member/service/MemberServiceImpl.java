@@ -2,12 +2,13 @@ package com.project.enjoytrip.member.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.project.enjoytrip.manage.membergrade.entity.MemberRole;
+import com.project.enjoytrip.manage.membergrade.repository.MemberRoleRepository;
 import com.project.enjoytrip.member.dto.MemberDeleteDto;
 import com.project.enjoytrip.member.dto.MemberFindAllDto;
 import com.project.enjoytrip.member.dto.MemberFindByEmailDto;
@@ -20,9 +21,11 @@ import com.project.enjoytrip.member.repository.MemberRepository;
 @Service
 public class MemberServiceImpl implements MemberService {
 	private MemberRepository memberRepository;
+	private MemberRoleRepository memberRoleRepository;
 
-	public MemberServiceImpl(MemberRepository memberRepository) {
+	public MemberServiceImpl(MemberRepository memberRepository, MemberRoleRepository memberRoleRepository) {
 		this.memberRepository = memberRepository;
+		this.memberRoleRepository = memberRoleRepository;
 	}
 
 	// 회원가입
@@ -33,7 +36,13 @@ public class MemberServiceImpl implements MemberService {
 		if (!checkEmailDuplicate(memberRegisterDto.getEmail())) {
 			try {
 				// 회원이 존재하지 않으면 회원가입 후 return true
-				memberRepository.save(memberRegisterDto.toEntity());
+				Member member = memberRegisterDto.toEntity();
+				MemberRole memberRole = new MemberRole();
+				memberRole.setMember(member);
+				member.setMemberRole(memberRole);
+				
+				memberRepository.save(member);
+				memberRoleRepository.save(memberRole);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,7 @@ public class FollowController {
 
 	// 팔로우 등록하기
 	@PostMapping(value = "/follow")
-	public Map<String, String> Follow(FollowRequestDto followRequestDto) {
+	public Map<String, String> Follow(@RequestBody FollowRequestDto followRequestDto) {
 		Map<String, String> map = new HashMap<>();
 		if (followServiceImpl.addFollow(followRequestDto)) {
 			map.put("result", "success");
@@ -39,7 +40,7 @@ public class FollowController {
 
 	// 팔로우 취소하기
 	@DeleteMapping(value = "/unfollow")
-	public Map<String, String> unFollow(FollowRequestDto followRequestDto) {
+	public Map<String, String> unFollow(@RequestBody FollowRequestDto followRequestDto) {
 		Map<String, String> map = new HashMap<>();
 		if (followServiceImpl.unFollow(followRequestDto)) {
 			map.put("result", "success");

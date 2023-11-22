@@ -3,7 +3,7 @@ package com.project.enjoytrip.manage.userstate.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class userStateController {
+public class UserStateController {
 	// 유저 상태를 관리하는 컨트롤러이다.
 	// 유저 상태 Enum으로 만들어서 관리한다.(DORMANT: 휴면 / SUSPENDED: 정지)
 	// 휴면 상태 또는 정지 상태 만료

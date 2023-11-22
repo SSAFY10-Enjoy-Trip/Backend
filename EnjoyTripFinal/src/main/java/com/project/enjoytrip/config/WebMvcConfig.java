@@ -23,6 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				"/login/**",
 				"/logout/**",
 				"/member/**",
+				"/role/**",
 				"/check/**",
 				"/follow/**",
 				"/like/**",

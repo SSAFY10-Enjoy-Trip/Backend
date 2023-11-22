@@ -1,6 +1,7 @@
 package com.project.enjoytrip.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,19 +43,25 @@ public class MemberController {
 	
 	// 회원 1건 조회
 	@GetMapping("/member")
-	public MemberFindByEmailDto find(MemberFindByEmailDto memberFindByEmailDto){
+	public Map<String, MemberFindByEmailDto> find(MemberFindByEmailDto memberFindByEmailDto){
 		System.out.println("/find");
 		
-		return memberServiceImpl.FindByEmail(memberFindByEmailDto);
-
+		Map<String, MemberFindByEmailDto> map = new HashMap<>();
+		MemberFindByEmailDto dto = memberServiceImpl.FindByEmail(memberFindByEmailDto);
+		
+		map.put("result", dto);
+		return map;
 	}
 	
 	// 회원 전체 조회
 	@GetMapping("/member/list")
-	public MemberFindAllDto findAll(){
+	public Map<String, List<MemberFindByEmailDto>> findAll(){
 		System.out.println("/findAll");
 		
-		return memberServiceImpl.FindAll();
+		Map<String, List<MemberFindByEmailDto>> map = new HashMap<>();
+		List<MemberFindByEmailDto> list = memberServiceImpl.FindAll().getMemberList();
+		map.put("result", list);
+		return map;
 
 	}
 	

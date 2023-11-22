@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.DynamicInsert;
+
+import com.project.enjoytrip.manage.membergrade.entity.MemberRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,4 +43,7 @@ public class Member {
 	
 	@Column(nullable = false, length = 45)
 	private String profileImageUrl;
+	
+	@OneToOne(mappedBy = "member")
+	private MemberRole memberRole;
 }

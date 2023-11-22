@@ -1,5 +1,5 @@
 package com.project.enjoytrip.manage.userstate.entity;
 
-public class userState {
+public class UserState {
 
 }
