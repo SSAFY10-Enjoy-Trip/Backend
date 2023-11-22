@@ -1,5 +1,6 @@
 package com.project.enjoytrip.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.project.enjoytrip.board.dto.BoardDeleteDto;
+import com.project.enjoytrip.board.dto.BoardFindAllDetialDto;
 import com.project.enjoytrip.board.dto.BoardFindAllDto;
 import com.project.enjoytrip.board.dto.BoardInsertDto;
 import com.project.enjoytrip.board.dto.BoardMatchDto;
@@ -49,14 +51,18 @@ public class BoardServiceImpl implements BoardService {
 
 	    Page<Board> boardPage = boardRepository.findAll(pageable);
 	    List<Board> dto = boardPage.getContent();
+	    List<BoardFindAllDetialDto> boardList = new ArrayList<>();
 	    BoardFindAllDto allDto = new BoardFindAllDto();
 
 	    for (Board board : dto) {
 	        int likeCount = likeService.likeCount(board.getBoardId(), board.getMember().getMemberId());
 	        board.setLikeCount(likeCount);
+	        //String title, String content, String location,
+			//String regDt, Member member
+	        boardList.add(new BoardFindAllDetialDto(board.getBoardId(), board.getTitle(), board.getContent(), board.getLocation(), board.getRegDt().toString(), board.getReadCount(), board.getLikeCount(), board.getMember().getMemberId(), board.getMember().getEmail(), board.getMember().getName(), board.getMember().getProfileImageUrl()));
 	    }
 
-	    allDto.setBoardList(dto);
+	    allDto.setBoardList(boardList);
 	    allDto.setTotalPages(boardPage.getTotalPages());
 	    allDto.setTotalElements((int) boardRepository.count());
         

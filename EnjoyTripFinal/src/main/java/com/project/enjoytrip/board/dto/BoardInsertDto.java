@@ -25,7 +25,7 @@ public class BoardInsertDto {
 	@NotBlank
 	private String location;
 	@NotBlank
-	private LocalDateTime regDt;
+	private String regDt;
 
 	@NotBlank
 	private Member member;
@@ -35,10 +35,22 @@ public class BoardInsertDto {
 		this.title = title;
 		this.content = content;
 		this.location = location;
-		this.regDt = LocalDateTime.now();
+		this.regDt = LocalDateTime.now().toString();
 	}
 	
 	public Board toEntity() {
-		return new Board(member, title, content, location, regDt);
+		return new Board(member, title, content, location, LocalDateTime.now());
 	}
+
+	public BoardInsertDto(@NotBlank String title, @NotBlank String content, @NotBlank String location,
+			@NotBlank String regDt, @NotBlank Member member) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.location = location;
+		this.regDt = regDt;
+		this.member = member;
+	}
+	
+	
 }

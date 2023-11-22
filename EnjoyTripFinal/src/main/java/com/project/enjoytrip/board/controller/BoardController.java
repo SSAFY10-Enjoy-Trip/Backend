@@ -55,6 +55,8 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		
 		
+		System.out.println(boardDto.getBoardList());
+		
 	    Gson gson = new Gson();
 	    String boardListJson = gson.toJson(boardDto.getBoardList());
 	    

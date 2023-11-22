@@ -47,9 +47,9 @@ public class Board {
 	@Column(name="like_count")
 	private int likeCount;
 	
-	// member_id ¿Ü·¡Å° ÁöÁ¤
+	// member_id ï¿½Ü·ï¿½Å° ï¿½ï¿½ï¿½ï¿½
 	@ManyToOne(cascade=CascadeType.REMOVE)
-	@JoinColumn(name="user_id") // PK°¡ ÇÏ³ª¶ó ÀÚµ¿ÁöÁ¤ µÇÁö¸¸, ¸í½ÃÇÔ. referencedColumnName="member_id"
+	@JoinColumn(name="user_id") // PKï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½. referencedColumnName="member_id"
 	private Member member;
 	
 	// Insert, Update
