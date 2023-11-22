@@ -6,4 +6,6 @@ public interface LikeService {
 
 	boolean amIHeart(int boardId, int userId);
 
+	int likeCount(int boardId, int memberId);
+
 }

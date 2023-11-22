@@ -12,6 +12,7 @@ import com.project.enjoytrip.board.dto.BoardMatchDto;
 import com.project.enjoytrip.board.dto.BoardModifyDto;
 import com.project.enjoytrip.board.entity.Board;
 import com.project.enjoytrip.board.repository.BoardRepository;
+import com.project.enjoytrip.like.service.LikeService;
 import com.project.enjoytrip.member.entity.Member;
 import com.project.enjoytrip.member.service.MemberService;
 
@@ -19,16 +20,21 @@ import com.project.enjoytrip.member.service.MemberService;
 public class BoardServiceImpl implements BoardService {
 	private MemberService memberService;
     private BoardRepository boardRepository;
+    private LikeService likeService;
 
-    public BoardServiceImpl(MemberService memberService, BoardRepository boardRepository) {
+    public BoardServiceImpl(MemberService memberService, BoardRepository boardRepository, LikeService likeService) {
         this.memberService = memberService;
         this.boardRepository = boardRepository;
+        this.likeService = likeService;
     }
 
 	@Override
 	public Board Detail(int boardId) {
 		Optional<Board> detail = boardRepository.findById(boardId);
 		Board board = detail.get();
+		int likeCount = likeService.likeCount(board.getBoardId(), board.getMember().getMemberId());
+		board.setLikeCount(likeCount);
+		
 		board.setReadCount(board.getReadCount()+1);
 		boardRepository.save(board);
 		return board;
@@ -38,6 +44,10 @@ public class BoardServiceImpl implements BoardService {
 	public BoardFindAllDto FindAll() {
 		List<Board> dto = boardRepository.findAll();
 		BoardFindAllDto allDto = new BoardFindAllDto();
+		for (Board board : dto) {
+			int likeCount = likeService.likeCount(board.getBoardId(), board.getMember().getMemberId());
+			board.setLikeCount(likeCount);
+		}
 		allDto.setBoardList(dto);
 		return allDto;
 	}

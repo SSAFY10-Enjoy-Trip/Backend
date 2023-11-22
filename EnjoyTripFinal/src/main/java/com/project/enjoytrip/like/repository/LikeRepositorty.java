@@ -10,4 +10,8 @@ public interface LikeRepositorty extends JpaRepository<Like, Integer> {
 
 	void deleteByBoardIdAndUserId(int boardId, int userId);
 
+	int countByBoardIdAndUserId(int boardId, int memberId);
+
+	int countByBoardId(int boardId);
+
 }
