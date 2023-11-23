@@ -92,7 +92,7 @@ public class FollowController {
 	}
 
 	// 내가 팔로잉 하는 사람들 수
-	@GetMapping(value = "/followings/{userEmail}")
+	@GetMapping(value = "/followings")
 	public Map<String, Integer> followings(FollowRequestDto followRequestDto) {
 		Map<String, Integer> map = new HashMap<>();
 		int count = followServiceImpl.getFollowingCount(followRequestDto);
