@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.project.enjoytrip.member.entity.Member;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class MemberRole{
 	@Column(name="role_id")
 	private int roleId;
 	
+	@JsonBackReference
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "member_id")
 	private Member member;

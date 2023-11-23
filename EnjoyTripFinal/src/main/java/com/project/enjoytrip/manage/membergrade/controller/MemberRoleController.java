@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,10 +30,13 @@ public class MemberRoleController {
 	// =============== SuperVisor ===============
 	// Manager 역할 위임(Supervisor만 가능)
 	@PutMapping(value="/assignment")
-	public Map<String, String> managerRoleAssignment(RoleRequestDto roleRequestDto, HttpSession session) {
+	public Map<String, String> managerRoleAssignment(@RequestBody RoleRequestDto roleRequestDto, HttpSession session) {
 		LoginDto user = (LoginDto) session.getAttribute("user");
 		Map<String, String> map = new HashMap<>();
 		boolean result = false;
+		System.out.println("매니저 위임:");
+		System.out.println(roleRequestDto.getEmail());
+		System.out.println(user.getMemberRole().getRole());
 		if(user.getMemberRole().getRole() == Role.ROLE_SUPERVISOR) {
 			result = memberRoleServiceImpl.managerRoleAssignment(roleRequestDto.getEmail());
 		}
@@ -48,7 +52,7 @@ public class MemberRoleController {
 
 	// Manager 역할 해제(Supervisor만 가능)
 	@PutMapping(value="/disAssignment")
-	public Map<String, String> managerRoleDisAssignment(RoleRequestDto roleRequestDto, HttpSession session) {
+	public Map<String, String> managerRoleDisAssignment(@RequestBody RoleRequestDto roleRequestDto, HttpSession session) {
 		LoginDto user = (LoginDto) session.getAttribute("user");
 		Map<String, String> map = new HashMap<>();
 		boolean result = false;

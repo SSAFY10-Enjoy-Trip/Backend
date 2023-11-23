@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.DynamicInsert;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.enjoytrip.manage.membergrade.entity.MemberRole;
 
 import lombok.AllArgsConstructor;
@@ -44,6 +45,7 @@ public class Member {
 	@Column(nullable = false, length = 45)
 	private String profileImageUrl;
 	
+	@JsonManagedReference
 	@OneToOne(mappedBy = "member")
 	private MemberRole memberRole;
 }
