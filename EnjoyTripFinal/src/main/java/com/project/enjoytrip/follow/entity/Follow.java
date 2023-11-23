@@ -9,7 +9,6 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +38,11 @@ public class Follow {
     }
 
     public static class PK implements Serializable {
-    	int userIdFrom;
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = -290190465632171213L;
+		int userIdFrom;
     	int userIdTo;
     }
 }

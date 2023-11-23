@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.enjoytrip.auth.dto.LoginDto;
 import com.project.enjoytrip.manage.membergrade.dto.RoleRequestDto;
 import com.project.enjoytrip.manage.membergrade.dto.RoleResponseDto;
 import com.project.enjoytrip.manage.membergrade.entity.Role;
@@ -26,10 +29,11 @@ public class MemberRoleController {
 	// =============== SuperVisor ===============
 	// Manager 역할 위임(Supervisor만 가능)
 	@PutMapping(value="/assignment")
-	public Map<String, String> managerRoleAssignment(RoleRequestDto roleRequestDto) {
+	public Map<String, String> managerRoleAssignment(RoleRequestDto roleRequestDto, HttpSession session) {
+		LoginDto user = (LoginDto) session.getAttribute("user");
 		Map<String, String> map = new HashMap<>();
 		boolean result = false;
-		if(roleRequestDto.getRole() == Role.ROLE_SUPERVISOR) {
+		if(user.getMemberRole().getRole() == Role.ROLE_SUPERVISOR) {
 			result = memberRoleServiceImpl.managerRoleAssignment(roleRequestDto.getEmail());
 		}
 		
@@ -44,10 +48,11 @@ public class MemberRoleController {
 
 	// Manager 역할 해제(Supervisor만 가능)
 	@PutMapping(value="/disAssignment")
-	public Map<String, String> managerRoleDisAssignment(RoleRequestDto roleRequestDto) {
+	public Map<String, String> managerRoleDisAssignment(RoleRequestDto roleRequestDto, HttpSession session) {
+		LoginDto user = (LoginDto) session.getAttribute("user");
 		Map<String, String> map = new HashMap<>();
 		boolean result = false;
-		if(roleRequestDto.getRole() == Role.ROLE_SUPERVISOR) {
+		if(user.getMemberRole().getRole() == Role.ROLE_SUPERVISOR) {
 			result = memberRoleServiceImpl.managerRoleDisAssignment(roleRequestDto.getEmail());
 		}
 		
@@ -61,11 +66,12 @@ public class MemberRoleController {
 	}
 
 	// ManagerList 조회(Supervisor 가능)
-	@PostMapping(value="/managerList")
-	public Map<String, List<RoleResponseDto>> managerList(RoleRequestDto roleRequestDto) {
+	@GetMapping(value="/managerList")
+	public Map<String, List<RoleResponseDto>> managerList(HttpSession session) {
+		LoginDto user = (LoginDto) session.getAttribute("user");
 		Map<String, List<RoleResponseDto>> map = new HashMap<>();
 		List<RoleResponseDto> managerList = null;
-		if(roleRequestDto.getRole() == Role.ROLE_SUPERVISOR) {
+		if(user.getMemberRole().getRole() == Role.ROLE_SUPERVISOR) {
 			managerList = memberRoleServiceImpl.managerList();
 		}
 		
@@ -78,16 +84,17 @@ public class MemberRoleController {
 	
 	// ========== Manager or SuperVisor ==========
 	// UserList 조회(Manager/Supervisor 가능)
-	@PostMapping(value="/userList")
-	public Map<String, List<RoleResponseDto>> userList(RoleRequestDto roleRequestDto) {
+	@GetMapping(value="/userList")
+	public Map<String, List<RoleResponseDto>> userList(HttpSession session) {
+		LoginDto user = (LoginDto) session.getAttribute("user");
 		Map<String, List<RoleResponseDto>> map = new HashMap<>();
-		List<RoleResponseDto> managerList = null;
-		if(roleRequestDto.getRole() == Role.ROLE_SUPERVISOR) {
-			managerList = memberRoleServiceImpl.userList();
+		List<RoleResponseDto> userList = null;
+		if(user.getMemberRole().getRole() == Role.ROLE_SUPERVISOR || user.getMemberRole().getRole() == Role.ROLE_MANAGER) {
+			userList = memberRoleServiceImpl.userList();
 		}
 		
 		// managerList를 서비스 레이어에서 정상적으로 가져왔으면 값이 들어있고 아니면 null
-		map.put("result", managerList);
+		map.put("result", userList);
 		
 		return map;
 	}

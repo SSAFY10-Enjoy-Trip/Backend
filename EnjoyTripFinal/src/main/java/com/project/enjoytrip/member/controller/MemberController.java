@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.enjoytrip.member.dto.MemberDeleteDto;
-import com.project.enjoytrip.member.dto.MemberFindAllDto;
 import com.project.enjoytrip.member.dto.MemberFindByEmailDto;
 import com.project.enjoytrip.member.dto.MemberModifyDto;
 import com.project.enjoytrip.member.dto.MemberRegisterDto;

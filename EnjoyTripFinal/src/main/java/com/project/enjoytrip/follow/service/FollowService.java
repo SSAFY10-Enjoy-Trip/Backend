@@ -10,8 +10,8 @@ public interface FollowService {
 	public Boolean unFollow(FollowRequestDto followRequestDto);
 	public List<FollowResponseDto> getAllFollowerMember(FollowRequestDto followRequestDto);
 	public List<FollowResponseDto> getAllFollowingMember(FollowRequestDto followRequestDto);
-	public Integer getFollowingCount(String userEmail);
-	public Integer getFollowerCount(String userEmail);
+	public Integer getFollowingCount(FollowRequestDto followRequestDto);
+	public Integer getFollowerCount(FollowRequestDto followRequestDto);
 //	public boolean isFollowingById(int userIdFrom, int userIdTo);
 	public boolean isFollowingByUserEmail(FollowRequestDto followRequestDto);
 }

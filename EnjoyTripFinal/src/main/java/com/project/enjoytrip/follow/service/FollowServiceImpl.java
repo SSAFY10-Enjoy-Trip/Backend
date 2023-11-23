@@ -141,16 +141,16 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Transactional
-    public Integer getFollowingCount(String userEmail){
-    	Member member = memberRepository.findByEmail(userEmail)
+    public Integer getFollowingCount(FollowRequestDto followRequestDto){
+    	Member member = memberRepository.findByEmail(followRequestDto.getUserEmailFrom())
                 .orElseThrow(() -> new AccountException(ExceptionCode.NOT_FOUND_ACCOUNT));
 
         return followRepository.countByUserIdFrom(member.getMemberId());
     }
 
     @Transactional
-    public Integer getFollowerCount(String userEmail){
-    	Member member = memberRepository.findByEmail(userEmail)
+    public Integer getFollowerCount(FollowRequestDto followRequestDto){
+    	Member member = memberRepository.findByEmail(followRequestDto.getUserEmailFrom())
                 .orElseThrow(() -> new AccountException(ExceptionCode.NOT_FOUND_ACCOUNT));
 
         return followRepository.countByUserIdTo(member.getMemberId());
