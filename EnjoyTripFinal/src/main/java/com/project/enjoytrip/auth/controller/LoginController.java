@@ -3,6 +3,7 @@ package com.project.enjoytrip.auth.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +49,20 @@ public class LoginController {
 		session.invalidate();
 		map.put("result", "success");
 
+		return map;
+	}
+	
+	@GetMapping(value="/checkSession")
+	public Map<String, String> check(HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		Map<String, String> map = new HashMap<>();
+		
+		if(session != null) {
+			map.put("result", "success");
+		}else {
+			map.put("result", "fail");
+		}
+		
 		return map;
 	}
 }
