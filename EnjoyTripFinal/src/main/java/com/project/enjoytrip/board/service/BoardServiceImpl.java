@@ -17,6 +17,7 @@ import com.project.enjoytrip.board.dto.BoardMatchDto;
 import com.project.enjoytrip.board.dto.BoardModifyDto;
 import com.project.enjoytrip.board.entity.Board;
 import com.project.enjoytrip.board.repository.BoardRepository;
+import com.project.enjoytrip.like.entity.Like;
 import com.project.enjoytrip.like.service.LikeService;
 import com.project.enjoytrip.member.entity.Member;
 import com.project.enjoytrip.member.service.MemberService;
@@ -107,5 +108,38 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public boolean IsWriter(BoardMatchDto boardMatchDto, int userId) {
 		return boardRepository.existsByBoardIdAndMember_MemberId(boardMatchDto.getBoardId(), userId);
+	}
+
+	// memberId가 좋아요한 게시글의 title, content, location 가져오기
+	@Override
+	public List<BoardFindAllDetialDto> FindLike(int memberId) {
+		 // memberId가 좋아요한 게시글의 boardId 리스트 가져오기
+        List<Like> likes = likeService.findByUserId(memberId);
+        List<Integer> boardIds = new ArrayList<>();
+        for (Like like : likes) {
+        	boardIds.add( (Integer) like.getBoardId());
+		}
+
+        List<BoardFindAllDetialDto> boardList = new ArrayList<>();
+        // boardId 리스트로부터 해당하는 게시글들 가져오기
+        List<Board> boards = boardRepository.findAllById(boardIds);
+        for (Board board : boards) {
+        	boardList.add(new BoardFindAllDetialDto(board.getBoardId(), board.getTitle(), board.getContent(), board.getLocation(), board.getRegDt().toString(), board.getReadCount(), board.getLikeCount(), board.getMember().getMemberId(), board.getMember().getEmail(), board.getMember().getName(), board.getMember().getProfileImageUrl()));
+		}
+
+        // 가져온 게시글 정보를 DTO로 변환
+        return boardList;
+	}
+
+	@Override
+	public List<BoardFindAllDetialDto> FindMember(int member_id) {
+		List<BoardFindAllDetialDto> boardList = new ArrayList<>();
+	    // boardId 리스트로부터 해당하는 게시글들 가져오기
+	    List<Board> boards = boardRepository.findByMemberMemberId(member_id);
+	    for (Board board : boards) {
+	    	boardList.add(new BoardFindAllDetialDto(board.getBoardId(), board.getTitle(), board.getContent(), board.getLocation(), board.getRegDt().toString(), board.getReadCount(), board.getLikeCount(), board.getMember().getMemberId(), board.getMember().getEmail(), board.getMember().getName(), board.getMember().getProfileImageUrl()));
+		}
+	
+	    return boardList;
 	}
 }

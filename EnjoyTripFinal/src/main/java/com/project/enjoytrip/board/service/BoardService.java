@@ -1,6 +1,9 @@
 package com.project.enjoytrip.board.service;
 
+import java.util.List;
+
 import com.project.enjoytrip.board.dto.BoardDeleteDto;
+import com.project.enjoytrip.board.dto.BoardFindAllDetialDto;
 import com.project.enjoytrip.board.dto.BoardFindAllDto;
 import com.project.enjoytrip.board.dto.BoardInsertDto;
 import com.project.enjoytrip.board.dto.BoardMatchDto;
@@ -15,4 +18,6 @@ public interface BoardService {
 	public boolean Modify(BoardModifyDto boardModifyDto);
 	public boolean Delete(BoardDeleteDto boardDeleteDto);
 	public boolean IsWriter(BoardMatchDto boardMatchDto, int memberId);
+	public List<BoardFindAllDetialDto> FindLike(int memberId);
+	public List<BoardFindAllDetialDto> FindMember(int member_id);
 }
