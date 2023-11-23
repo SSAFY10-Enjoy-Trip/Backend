@@ -15,6 +15,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class MemberFindByEmailDto {
+	
+	private int memberId;
+	
 	@NotBlank
 	private String email;
 	
@@ -25,7 +28,8 @@ public class MemberFindByEmailDto {
 	private String profileImageUrl;
 	
 	@Builder
-	public MemberFindByEmailDto(String email, String name, String profileImageUrl) {
+	public MemberFindByEmailDto(int memberId, String email, String name, String profileImageUrl) {
+		this.memberId = memberId;
 		this.email = email;
 		this.name = name;
 		this.profileImageUrl = profileImageUrl;
@@ -43,6 +47,7 @@ public class MemberFindByEmailDto {
 	
 	public MemberFindByEmailDto toDto(Member member) {
 		return MemberFindByEmailDto.builder()
+				.memberId(member.getMemberId())
 				.email(member.getEmail())
 				.name(member.getName())
 				.profileImageUrl(member.getProfileImageUrl())
