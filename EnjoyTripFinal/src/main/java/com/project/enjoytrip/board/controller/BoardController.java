@@ -1,6 +1,7 @@
 package com.project.enjoytrip.board.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.project.enjoytrip.auth.dto.LoginDto;
+import com.project.enjoytrip.board.dto.BoardFindAllDetialDto;
 import com.project.enjoytrip.board.dto.BoardFindAllDto;
 import com.project.enjoytrip.board.dto.BoardInsertDto;
 import com.project.enjoytrip.board.dto.BoardMatchDto;
@@ -73,6 +75,32 @@ public class BoardController {
 		boolean result = boardService.IsWriter(boardMatchDto, loginDto.getMemberId());
 		System.out.println("결과 : " + result);
 		return result ;
+	}
+	
+	@PostMapping(value="/tripBoard/like")
+	public Map<String, String> FindLike(@RequestBody BoardFindAllDetialDto boardFindAllDetialDto) {
+		System.out.println(boardFindAllDetialDto);
+		Map<String, String> map = new HashMap<>();
+		List<BoardFindAllDetialDto> result = boardService.FindLike(boardFindAllDetialDto.getMember_id());
+		Gson gson = new Gson();
+		System.out.println(result);
+	    String boardListJson = gson.toJson(result);
+		System.out.println(boardListJson);
+		map.put("board", boardListJson);
+		return map;
+	}
+	
+	@PostMapping(value="/tripBoard/member")
+	public Map<String, String> FindMember(@RequestBody BoardFindAllDetialDto boardFindAllDetialDto) {
+		System.out.println(boardFindAllDetialDto);
+		Map<String, String> map = new HashMap<>();
+		List<BoardFindAllDetialDto> result = boardService.FindMember(boardFindAllDetialDto.getMember_id());
+		Gson gson = new Gson();
+		System.out.println(result);
+	    String boardListJson = gson.toJson(result);
+		System.out.println(boardListJson);
+		map.put("board", boardListJson);
+		return map;
 	}
 
 

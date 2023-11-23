@@ -1,9 +1,12 @@
 package com.project.enjoytrip.like.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.project.enjoytrip.board.dto.BoardFindAllDetialDto;
 import com.project.enjoytrip.board.entity.Board;
 import com.project.enjoytrip.board.repository.BoardRepository;
 import com.project.enjoytrip.board.service.BoardService;
@@ -46,5 +49,12 @@ public class LikeServiceImpl implements LikeService {
 	public int likeCountJustBoard(int boardId) {
 		return likeRepository.countByBoardId(boardId);
 	}
+
+	@Override
+	public List<Like> findByUserId(int memberId) {
+		// TODO Auto-generated method stub
+		return likeRepository.findByUserId(memberId);
+	}
+
 
 }

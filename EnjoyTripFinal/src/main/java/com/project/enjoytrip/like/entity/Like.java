@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
  * 복합키를 직접 조회할 필요가 없음.
  * 조회 성능이 저하될 가능성이 낮음.
  * */
+@Getter
 @Table(name = "board_like")
 public class Like implements Serializable {
 	private static final long serialVersionUID = -4067764361996890460L;

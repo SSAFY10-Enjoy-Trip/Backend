@@ -28,4 +28,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
 	Page<Board> findAllByOrderByRegDtDateAsc(PageRequest pageable);
 
+	List<Board> findByMemberMemberId(int userId);
+
+
 }
