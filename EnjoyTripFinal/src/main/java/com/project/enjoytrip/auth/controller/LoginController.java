@@ -33,6 +33,7 @@ public class LoginController {
 			map.put("result", "success");
 			map.put("name", user.getName());
 			map.put("profileImageUrl", user.getProfileImageUrl());
+			map.put("role", user.getMemberRole().getRole().toString());
 		}else {
 			map.put("result", "fail");
 		}

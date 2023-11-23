@@ -2,6 +2,7 @@ package com.project.enjoytrip.auth.dto;
 
 import javax.validation.constraints.NotBlank;
 
+import com.project.enjoytrip.manage.membergrade.entity.MemberRole;
 import com.project.enjoytrip.member.entity.Member;
 
 import lombok.Builder;
@@ -30,13 +31,16 @@ public class LoginDto {
 	@NotBlank
 	private String profileImageUrl;
 	
+	private MemberRole memberRole;
+	
 	@Builder
-	public LoginDto(int memberId, String email, String name, String password, String profileImageUrl) {
+	public LoginDto(int memberId, String email, String name, String password, String profileImageUrl, MemberRole memberRole) {
 		this.memberId = memberId;
 		this.email = email;
 		this.name = name;
 		this.password = password;
 		this.profileImageUrl = profileImageUrl;
+		this.memberRole = memberRole;
 	}
 	
 	public Member toEntity() {
@@ -53,6 +57,7 @@ public class LoginDto {
 				.name(member.getName())
 				.password(member.getPassword())
 				.profileImageUrl(member.getProfileImageUrl())
+				.memberRole(member.getMemberRole())
 				.build();
 	}
 }
