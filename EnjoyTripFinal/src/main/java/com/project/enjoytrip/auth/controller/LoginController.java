@@ -55,10 +55,18 @@ public class LoginController {
 	@GetMapping(value="/checkSession")
 	public Map<String, String> check(HttpServletRequest request){
 		HttpSession session = request.getSession(false);
+		
 		Map<String, String> map = new HashMap<>();
 		
 		if(session != null) {
+			LoginDto user = (LoginDto) session.getAttribute("user");
+			
 			map.put("result", "success");
+			map.put("memberId", ""+ user.getMemberId());
+			map.put("email", user.getEmail());
+			map.put("name", user.getName());
+			map.put("profileImageUrl", user.getProfileImageUrl());
+			map.put("role", user.getMemberRole().getRole().toString());
 		}else {
 			map.put("result", "fail");
 		}
