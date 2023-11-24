@@ -38,7 +38,7 @@ public class FollowController {
 	}
 
 	// 팔로우 취소하기
-	@DeleteMapping(value = "/unfollow")
+	@PostMapping(value = "/unfollow")
 	public Map<String, String> unFollow(@RequestBody FollowRequestDto followRequestDto) {
 		Map<String, String> map = new HashMap<>();
 		if (followServiceImpl.unFollow(followRequestDto)) {
