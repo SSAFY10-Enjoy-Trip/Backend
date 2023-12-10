@@ -44,6 +44,7 @@
 
 개인정보 보호를 위해 ```application.properties``` 파일을 올리지 않았습니다. <br>
 아래 내용을 ```src\main\resources```에 위치시켜 주시기 바랍니다.
+ - application.properties
 ``` yaml
 #datasource
 spring.datasource.url=jdbc:mysql://localhost:3306/enjoytripfinal?serverTimezone=Asia/Seoul
@@ -101,11 +102,38 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 
 |Link|API|Parameter|Return|Method|Description|
 |:---:|:---:|:---:|:-----:|:---:|:---|
-|/tripBoard|Post|(BoardInsertDto, HttpSession)|Map<String, String>|Insert|게시글 등록|
+|/tripBoard|Post|BoardInsertDto, HttpSession|Map<String, String>|Insert|게시글 등록|
 |/tripBoard/{boardId}|Get|Integer|Board|Detail|특정 게시글에 대한 세부 정보 조회|
-|/tripBoard/all|Post|(BoardFindAllDto)|Map<String, String>|FindAll|특정페이지의 게시글 조회 후 게시글 정보(board, totalPages, totalElements)반환|
-|/tripBoard/check|Post|BoardMatchDto, HttpSession|Boolean|IsWriter|특정 게시글에 대한 세부 정보 조회|
+|/tripBoard/all|Post|BoardFindAllDto|Map<String, String>|FindAll|특정페이지의 게시글 조회 후 게시글 정보(board, totalPages, totalElements)반환|
+|/tripBoard/check|Post|BoardMatchDto, HttpSession|Boolean|IsWriter|해당 게시글이 자신의 게시글인지 확인|
+|/tripBoard/like|Post|BoardFindAllDetialDto|Map<String, String>|FindLike|좋아요한 게시글 목록(board) 반환|
+|/tripBoard/member|Post|BoardFindAllDetialDto|Map<String, String>|FindMember|팔로우한 유저가 작성한 게시글 목록(board) 반환|
+
+<br>
+
+### Follow
+ : follow/controller/FollowController.java
+
+|Link|API|Parameter|Return|Method|Description|
+|:---:|:---:|:---:|:-----:|:---:|:---|
+|/follow|Post|FollowRequestDto|Map<String, String>|addFollow|팔로우|
+|/unfollow|Post|FollowRequestDto|Map<String, String>|unFollow|언팔로우|
+|/following|Get|FollowRequestDto|Map<String, String>|isFollowingByUserEmail|FollowRequestDto의 from이 to를 팔로우하고 있는지 여부|
+|/followerList|Get|FollowRequestDto|Map<String, List<FollowResponseDto>>|getAllFollowerMember|나를 팔로우 하는 사람들 리스트|
+|/followingList|Get|FollowRequestDto|Map<String, List<FollowResponseDto>>|getAllFollowingMember|내가 팔로우 하는 사람들 리스트|
+|/followers|Get|FollowRequestDto|Map<String, Integer>|getFollowerCount|나를 팔로우 하는 사람들 수|
+|/followings|Get|FollowRequestDto|Map<String, Integer>|getFollowingCount|내가 팔로잉 하는 사람들 수|
+
+<br>
+
+### Like
+ : like/controller/LikeController.java
+
+|Link|API|Parameter|Return|Method|Description|
+|:---:|:---:|:---:|:-----:|:---:|:---|
+|/like|Post|LikeUpdateDto, HttpSession|Map<String, String>|addHeart|좋아요 등록하기|
+|/like/count|Post|LikeUpdateDto, HttpSession|Map<String, String>|likeCount|전체 좋아요 개수|
+|/like/check|Post|LikeUpdateDto, HttpSession|Map<String, String>|amIHeart|현재 유저가 해당 글에 대해 이미 좋아요를 눌렀는지 확인|
 
 
-
-
++ manage, member 추가 필요
